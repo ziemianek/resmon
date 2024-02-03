@@ -14,7 +14,6 @@ RUN apt-get -y install \
     make \
     unzip
 
-
 RUN /bin/bash -c "\
     curl -JLO 'https://github.com/sysstat/sysstat/archive/refs/heads/master.zip' && \
     unzip sysstat-master.zip && \
