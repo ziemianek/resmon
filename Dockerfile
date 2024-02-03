@@ -1,22 +1,27 @@
-# Build stage
-FROM alpine:3.14 as Builder
+###############
+# Build stage #
+###############
+FROM ubuntu:20.04 AS Builder
 
-# Perform updates
-RUN apk update && \
-    apk upgrade
+WORKDIR /src
 
-# Install build dependencies
-RUN apk add \
+RUN apt-get -y update && \
+    apt-get -y upgrade
+
+RUN apt-get -y install \
+    curl \
     gcc \
-    git
+    make \
+    unzip
 
-# Display versions for verification
-RUN gcc --version && \
-    git --version
 
-# Second stage: Runtime stage
-FROM alpine:3.14 as Final
-
-# Copy only the necessary artifacts from the build stage
-COPY --from=Builder /usr/bin/gcc /usr/bin/
-COPY --from=Builder /usr/bin/git /usr/bin/
+RUN /bin/bash -c "\
+    curl -JLO 'https://github.com/sysstat/sysstat/archive/refs/heads/master.zip' && \
+    unzip sysstat-master.zip && \
+    pushd sysstat-master && \
+    ./configure && \
+    make && \
+    make install && \
+    popd && \
+    rm -rf sysstat-master* \
+    "
