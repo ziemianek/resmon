@@ -3,7 +3,7 @@
 ###############
 FROM ubuntu:20.04 AS Builder
 
-WORKDIR /src
+WORKDIR /app
 
 RUN apt-get -y update && \
     apt-get -y upgrade
@@ -12,7 +12,10 @@ RUN apt-get -y install \
     curl \
     gcc \
     make \
-    unzip
+    rsyslog \
+    systemctl \
+    unzip \
+    vim
 
 RUN /bin/bash -c "\
     curl -JLO 'https://github.com/sysstat/sysstat/archive/refs/heads/master.zip' && \
