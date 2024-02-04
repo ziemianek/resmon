@@ -27,3 +27,5 @@ RUN /bin/bash -c "\
     popd && \
     rm -rf sysstat-master* \
     "
+
+ENTRYPOINT [ "/app/entrypoint.sh" ]
