@@ -28,4 +28,4 @@ RUN /bin/bash -c "\
     rm -rf sysstat-master* \
     "
 
-ENTRYPOINT [ "/app/entrypoint.sh" ]
+# ENTRYPOINT [ "/app/entrypoint.sh" ]
